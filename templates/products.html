@@ -1,0 +1,39 @@
+
+{% extends "layout.html" %}
+{% block title %}Products - Vulnerable Corp{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold text-center text-white mb-4">Our Products</h1>
+<p class="text-center text-gray-400 mb-8">Filter products by category. Try to find the SQL Injection vulnerability!</p>
+<div class="flex justify-center items-center space-x-2 sm:space-x-4 mb-10 bg-gray-900/50 p-2 rounded-lg border border-gray-700 max-w-md mx-auto">
+    <a href="{{ url_for('products', category='electronics') }}" class="flex-1 text-center px-4 py-2 rounded-md transition-colors duration-300 {% if request.args.get('category') == 'electronics' %}bg-red-600 text-white{% else %}hover:bg-gray-700{% endif %}">Electronics</a>
+    <a href="{{ url_for('products', category='books') }}" class="flex-1 text-center px-4 py-2 rounded-md transition-colors duration-300 {% if request.args.get('category') == 'books' %}bg-red-600 text-white{% else %}hover:bg-gray-700{% endif %}">Books</a>
+    <a href="{{ url_for('products') }}" class="flex-1 text-center px-4 py-2 rounded-md transition-colors duration-300 {% if not request.args.get('category') %}bg-red-600 text-white{% else %}hover:bg-gray-700{% endif %}">All</a>
+</div>
+
+<div class="p-4 bg-gray-900 rounded-lg border border-gray-700 mb-10">
+    <div class="flex items-center justify-between bg-gray-800 -m-4 mb-0 p-2 rounded-t-lg">
+        <span class="text-sm font-semibold text-yellow-400 pl-2">Executed Database Query</span>
+        <div class="flex space-x-1.5">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+        </div>
+    </div>
+    <pre class="mt-4 p-4 bg-gray-900 rounded-b-md text-green-400 whitespace-pre-wrap font-fira text-sm"><code>{{ query }}</code></pre>
+    <div class="mt-4 pt-4 border-t border-gray-700">
+        <p class="text-sm text-gray-400 font-fira">Try this URL parameter: <code class="text-orange-400 bg-gray-800 p-1 rounded-md">?category=' OR '1'='1</code></p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for product in products %}
+    <div class="bg-gray-900/50 p-6 rounded-lg border border-gray-700 transition-all duration-300 hover:border-red-500 hover:shadow-xl">
+        <h3 class="text-2xl font-bold text-teal-400">{{ product.name }}</h3>
+        <p class="text-gray-300 my-2 h-12">{{ product.description }}</p>
+        <p class="text-xl font-bold text-green-400 mt-4">${{ "%.2f"|format(product.price) }}</p>
+    </div>
+    {% else %}
+        <p class="text-center col-span-2 text-gray-400">No products found for this category.</p>
+    {% endfor %}
+</div>
+{% endblock %}

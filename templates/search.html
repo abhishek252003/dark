@@ -1,0 +1,28 @@
+
+{% extends "layout.html" %}
+{% block title %}Search - Vulnerable Corp{% endblock %}
+{% block content %}
+<h1 class="text-3xl font-bold text-center text-white mb-8">Search Our Site</h1>
+<form class="text-center max-w-2xl mx-auto" method="GET" action="{{ url_for('search') }}">
+    <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+        </div>
+        <input type="text" id="search" name="q" class="transition-all duration-300 block w-full pl-10 p-4 rounded-md bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent" placeholder="Search for anything...">
+    </div>
+</form>
+
+<div class="mt-10 p-6 bg-gray-900/50 border border-gray-700 rounded-lg">
+    <h2 class="text-2xl font-bold text-yellow-400">Search Results</h2>
+    <!-- VULNERABILITY: Reflected XSS is here -->
+    <div class="mt-4 prose prose-invert max-w-none prose-p:text-gray-300">
+        {{ results|safe }}
+    </div>
+    <div class="mt-6 pt-4 border-t border-gray-700">
+        <p class="text-sm text-gray-400 font-fira">Try searching for: <code class="text-orange-400 bg-gray-800 p-1 rounded-md">&lt;script&gt;alert('XSS')&lt;/script&gt;</code></p>
+    </div>
+</div>
+{% endblock %}
+

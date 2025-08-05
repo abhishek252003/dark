@@ -1,0 +1,28 @@
+
+{% extends "layout.html" %}
+{% block title %}Home - Vulnerable Corp{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-yellow-500 mb-4">
+        Welcome to VulnerableCorp
+    </h1>
+    <p class="text-lg text-gray-400 mb-10">
+        The premier platform for hands-on web security training.
+    </p>
+</div>
+
+<div class="mt-8 p-6 bg-gray-900/50 border border-gray-700 rounded-lg">
+    <div class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h2 class="text-2xl font-bold text-yellow-400">About This Site</h2>
+    </div>
+    <p class="mt-4 text-gray-300 leading-relaxed">
+        This Flask-powered website is intentionally designed with multiple security flaws. It serves as a practical, hands-on environment for developers and security enthusiasts to learn about, identify, and test common web application vulnerabilities. Use it responsibly to sharpen your skills and test your local Web Application Firewall (WAF) configurations.
+    </p>
+    <p class="mt-4 text-red-400 font-fira">
+        <span class="font-bold">DISCLAIMER:</span> Do NOT deploy this on a public server.
+    </p>
+</div>
+{% endblock %}
